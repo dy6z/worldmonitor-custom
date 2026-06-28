@@ -10,6 +10,12 @@ export const SITE_VARIANT: string = (() => {
   if (typeof window === 'undefined') return buildVariant;
 
   const isTauri = '__TAURI_INTERNALS__' in window || '__TAURI__' in window;
+
+  // Check URL param ?v=macro (or any known variant) — highest priority for sharing
+  const urlParams = new URLSearchParams(location.search);
+  const v = urlParams.get('v') || urlParams.get('variant');
+  if (v && ['tech', 'full', 'finance', 'happy', 'commodity', 'energy', 'macro'].includes(v)) return v;
+
   if (isTauri) {
     const stored = localStorage.getItem('worldmonitor-variant');
     if (stored === 'tech' || stored === 'full' || stored === 'finance' || stored === 'happy' || stored === 'commodity' || stored === 'energy' || stored === 'macro') return stored;
