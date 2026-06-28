@@ -8,7 +8,7 @@ import { hashString, sha256Hex } from '../../../_shared/hash';
 // Constants
 // ========================================================================
 
-export const UPSTREAM_TIMEOUT_MS = 25_000;
+export const UPSTREAM_TIMEOUT_MS = 45_000;
 // v5 (2026-04-28): bumped from v4 to evict entries that landed under
 // the pre-publisher-prefix-fix classifier (PR #3480). Brand-prefixed
 // retrospective titles like "CBS News Radio flashback: D-Day, Invasion

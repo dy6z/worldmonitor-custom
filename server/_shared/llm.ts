@@ -402,6 +402,7 @@ export async function callLlm(opts: LlmCallOptions): Promise<LlmCallResult | nul
     }
 
     try {
+      console.log(`[llm:${providerName}] calling model=${creds.model} timeout=${timeoutMs}ms`);
       const resp = await fetch(creds.apiUrl, {
         method: 'POST',
         headers: { ...creds.headers, 'User-Agent': CHROME_UA },
