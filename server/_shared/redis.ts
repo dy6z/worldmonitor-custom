@@ -427,7 +427,7 @@ const inflight = new Map<string, Promise<unknown>>();
  * MUST pass an explicit `opts.timeoutMs` set above their internal budget,
  * otherwise the cache layer will pre-empt the caller's own timeout/fallback.
  */
-const FETCHER_TIMEOUT_MS_DEFAULT = 30_000;
+const FETCHER_TIMEOUT_MS_DEFAULT = 60_000;
 let fetcherTimeoutDefaultMs = FETCHER_TIMEOUT_MS_DEFAULT;
 
 // Test-only: override the DEFAULT inflight timeout so unit tests can exercise

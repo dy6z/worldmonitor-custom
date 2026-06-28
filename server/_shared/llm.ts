@@ -74,7 +74,7 @@ export function getProviderCredentials(
     if (!apiKey) return null;
     return {
       apiUrl: 'https://openrouter.ai/api/v1/chat/completions',
-      model: overrides.model || 'google/gemini-2.5-flash',
+      model: overrides.model || process.env.LLM_MODEL || 'qwen/qwen3.5-flash-02-23',
       headers: {
         'Authorization': `Bearer ${apiKey}`,
         'Content-Type': 'application/json',
@@ -362,7 +362,7 @@ export async function callLlm(opts: LlmCallOptions): Promise<LlmCallResult | nul
     messages: rawMessages,
     temperature = 0.3,
     maxTokens = 1500,
-    timeoutMs = 25_000,
+    timeoutMs = 45_000,
     provider: forcedProvider,
     providerOrder,
     modelOverrides,
