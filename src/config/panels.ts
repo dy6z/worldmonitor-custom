@@ -1170,6 +1170,7 @@ export const ALL_PANELS: Record<string, PanelConfig> = {
   ...TECH_PANELS,
   ...FINANCE_PANELS,
   ...FULL_PANELS,
+  ...MACRO_PANELS,
 };
 
 /** Per-variant canonical panel order (keys = which panels are enabled by default). */
@@ -1180,6 +1181,7 @@ export const VARIANT_DEFAULTS: Record<string, string[]> = {
   commodity: Object.keys(VARIANT_PANEL_CONFIGS.commodity),
   energy:    Object.keys(VARIANT_PANEL_CONFIGS.energy),
   happy:     Object.keys(VARIANT_PANEL_CONFIGS.happy),
+  macro:     Object.keys(VARIANT_PANEL_CONFIGS.macro),
 };
 
 /**

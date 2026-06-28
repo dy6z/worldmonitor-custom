@@ -512,6 +512,14 @@ export class PanelLayoutManager implements AppModule {
                title="Good News${SITE_VARIANT === 'happy' ? ` ${t('common.currentVariant')}` : ''}">
               <span class="variant-icon">☀️</span>
               <span class="variant-label">Good News</span>
+            </a>
+            <a href="${vHref('macro', 'https://macro.worldmonitor.app')}"
+               class="variant-option ${SITE_VARIANT === 'macro' ? 'active' : ''}"
+               data-variant="macro"
+               ${vTarget('macro')}
+               title="Macro Trading${SITE_VARIANT === 'macro' ? ` ${t('common.currentVariant')}` : ''}">
+              <span class="variant-icon">📊</span>
+              <span class="variant-label">Macro</span>
             </a>`;
       })()}</div>
           <span class="logo">MONITOR</span><span class="logo-mobile">World Monitor</span><span class="version">v${__APP_VERSION__}</span>${BETA_MODE ? '<span class="beta-badge">BETA</span>' : ''}
