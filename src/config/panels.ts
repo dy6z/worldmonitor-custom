@@ -758,7 +758,62 @@ const HAPPY_MOBILE_MAP_LAYERS: MapLayers = {
 };
 
 // ============================================
-// COMMODITY VARIANT (Mining, Metals, Energy)
+// MACRO VARIANT (Trading: Gold/Oil/Forex/Macro)
+// ============================================
+// Stripped for trading: no tech, AI, crypto, layoffs, defense intel, airline noise.
+// Focus: macro signals, COT, gold, oil, forex, supply chain.
+// ponytail: add 'forex' panel when FOREX_PANELS is finalized upstream
+const MACRO_PANELS: Record<string, PanelConfig> = {
+  map: { name: 'Macro Map', enabled: true, priority: 1 },
+  'live-news': { name: 'Macro Headlines', enabled: true, priority: 1 },
+  insights: { name: 'AI Macro Insights', enabled: true, priority: 1 },
+  // Core macro signals
+  'macro-signals': { name: 'Market Regime', enabled: true, priority: 1 },
+  'macro-tiles': { name: 'Macro Indicators', enabled: true, priority: 1 },
+  'fear-greed': { name: 'Fear & Greed', enabled: true, priority: 1 },
+  'cot-positioning': { name: 'COT Positioning', enabled: true, priority: 1 },
+  'yield-curve': { name: 'Yield Curve', enabled: true, priority: 1 },
+  'liquidity-shifts': { name: 'Liquidity Shifts', enabled: true, priority: 1 },
+  'positioning-247': { name: '24/7 Positioning', enabled: true, priority: 1 },
+  'market-breadth': { name: 'Market Breadth', enabled: true, priority: 1 },
+  // Commodities — gold & energy
+  commodities: { name: 'Metals & Materials', enabled: true, priority: 1 },
+  'gold-silver': { name: 'Gold & Silver', enabled: true, priority: 1 },
+  'gold-intelligence': { name: 'Gold Intelligence', enabled: true, priority: 60 },
+  'energy-complex': { name: 'Energy Complex', enabled: true, priority: 1 },
+  energy: { name: 'Energy Markets', enabled: true, priority: 1 },
+  'oil-inventories': { name: 'Oil Inventories', enabled: true, priority: 60 },
+  'base-metals': { name: 'Base Metals', enabled: true, priority: 2 },
+  'critical-minerals': { name: 'Critical Minerals', enabled: true, priority: 2 },
+  // Markets
+  markets: { name: 'Live Markets', enabled: true, priority: 1 },
+  heatmap: { name: 'Sector Heatmap', enabled: true, priority: 1 },
+  // Economic
+  economic: { name: 'Macro Stress', enabled: true, priority: 1 },
+  'economic-calendar': { name: 'Economic Calendar', enabled: true, priority: 1 },
+  // Trade & supply
+  'trade-policy': { name: 'Trade Policy', enabled: true, priority: 1, premium: 'locked' as const },
+  'sanctions-pressure': { name: 'Sanctions Pressure', enabled: true, priority: 1 },
+  'supply-chain': { name: 'Supply Chain', enabled: true, priority: 1 },
+  // Central banks & analysis
+  centralbanks: { name: 'Central Bank Watch', enabled: true, priority: 1 },
+  analysis: { name: 'Market Analysis', enabled: true, priority: 2 },
+  // Crypto (macro hedge context only)
+  crypto: { name: 'Crypto (Macro)', enabled: true, priority: 2 },
+  'etf-flows': { name: 'BTC ETF Tracker', enabled: true, priority: 2 },
+  stablecoins: { name: 'Stablecoins', enabled: true, priority: 2 },
+  // Institutional
+  institutional: { name: 'Hedge Funds & PE', enabled: true, priority: 2 },
+  derivatives: { name: 'Derivatives & Options', enabled: true, priority: 2 },
+  // Polymarket
+  polymarket: { name: 'Predictions', enabled: true, priority: 2 },
+  // Data
+  monitors: { name: 'My Monitors', enabled: true, priority: 2 },
+  'world-clock': { name: 'World Clock', enabled: true, priority: 2 },
+};
+
+// ============================================
+// ENERGY VARIANT (Mining, Metals, Energy)
 // ============================================
 const COMMODITY_PANELS: Record<string, PanelConfig> = {
   map: { name: 'Commodity Map', enabled: true, priority: 1 },
@@ -1089,7 +1144,7 @@ const ENERGY_MOBILE_MAP_LAYERS: MapLayers = {
 // UNIFIED PANEL REGISTRY
 // ============================================
 
-type PanelVariant = 'full' | 'tech' | 'finance' | 'commodity' | 'energy' | 'happy';
+type PanelVariant = 'full' | 'tech' | 'finance' | 'commodity' | 'energy' | 'happy' | 'macro';
 
 const VARIANT_PANEL_CONFIGS: Record<PanelVariant, Record<string, PanelConfig>> = {
   full: FULL_PANELS,
@@ -1098,6 +1153,7 @@ const VARIANT_PANEL_CONFIGS: Record<PanelVariant, Record<string, PanelConfig>> =
   commodity: COMMODITY_PANELS,
   energy: ENERGY_PANELS,
   happy: HAPPY_PANELS,
+  macro: MACRO_PANELS,
 };
 
 function getVariantPanelConfigs(variant: string): Record<string, PanelConfig> | undefined {
@@ -1153,6 +1209,11 @@ export const VARIANT_PANEL_OVERRIDES: Partial<Record<string, Partial<Record<stri
   },
   happy: {
     map:         { name: 'World Map' },
+  },
+  macro: {
+    map:         { name: 'Macro Map' },
+    'live-news': { name: 'Macro Headlines' },
+    insights:    { name: 'AI Macro Insights' },
   },
 };
 
@@ -1355,7 +1416,7 @@ export const PANEL_CATEGORY_MAP: Record<string, { labelKey: string; panelKeys: s
   marketsFinance: {
     labelKey: 'header.panelCatMarketsFinance',
     panelKeys: ['commodities', 'energy-complex', 'energy-risk-overview', 'pipeline-status', 'storage-facility-map', 'oil-inventories', 'fuel-prices', 'chokepoint-strip', 'fuel-shortages', 'energy-disruptions', 'hormuz-tracker', 'energy-crisis', 'markets', 'economic', 'trade-policy', 'sanctions-pressure', 'supply-chain', 'finance', 'polymarket', 'macro-signals', 'gulf-economies', 'etf-flows', 'stablecoins', 'crypto', 'heatmap', 'aaii-sentiment', 'cot-positioning', 'earnings-calendar', 'economic-calendar', 'fear-greed', 'fsi', 'macro-tiles', 'market-breadth', 'liquidity-shifts', 'national-debt', 'positioning-247', 'wsb-ticker-scanner', 'yield-curve', 'gold-intelligence', 'bigmac', 'market-implications'],
-    variants: ['full', 'energy'],
+    variants: ['full', 'energy', 'macro'],
   },
   topical: {
     labelKey: 'header.panelCatTopical',
@@ -1365,7 +1426,7 @@ export const PANEL_CATEGORY_MAP: Record<string, { labelKey: string; panelKeys: s
   dataTracking: {
     labelKey: 'header.panelCatDataTracking',
     panelKeys: ['monitors', 'satellite-fires', 'ucdp-events', 'displacement', 'climate', 'climate-news', 'population-exposure', 'security-advisories', 'radiation-watch', 'oref-sirens', 'world-clock', 'tech-readiness', 'disease-outbreaks', 'fao-food-price-index', 'grocery-basket', 'defense-patents'],
-    variants: ['full', 'energy'],
+    variants: ['full', 'energy', 'macro'],
   },
 
   // Tech variant
@@ -1454,6 +1515,28 @@ export const PANEL_CATEGORY_MAP: Record<string, { labelKey: string; panelKeys: s
     labelKey: 'header.panelCatHappyPlanet',
     panelKeys: ['species', 'renewable', 'giving'],
     variants: ['happy'],
+  },
+
+  // Macro variant (trading)
+  macroSignals: {
+    labelKey: 'header.panelCatMacroSignals',
+    panelKeys: ['macro-signals', 'macro-tiles', 'fear-greed', 'cot-positioning', 'yield-curve', 'liquidity-shifts', 'positioning-247', 'market-breadth', 'economic-calendar'],
+    variants: ['macro'],
+  },
+  commoditiesGold: {
+    labelKey: 'header.panelCatCommoditiesGold',
+    panelKeys: ['commodities', 'gold-silver', 'gold-intelligence', 'energy-complex', 'energy', 'oil-inventories', 'base-metals', 'critical-minerals', 'markets', 'heatmap'],
+    variants: ['macro'],
+  },
+  macroEcon: {
+    labelKey: 'header.panelCatMacroEcon',
+    panelKeys: ['economic', 'centralbanks', 'analysis', 'trade-policy', 'sanctions-pressure', 'supply-chain', 'institutional', 'derivatives'],
+    variants: ['macro'],
+  },
+  cryptoMacro: {
+    labelKey: 'header.panelCatCryptoMacro',
+    panelKeys: ['crypto', 'etf-flows', 'stablecoins', 'polymarket'],
+    variants: ['macro'],
   },
 };
 
