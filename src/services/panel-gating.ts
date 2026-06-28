@@ -27,7 +27,9 @@ export enum PanelGateReason {
  * signals that aren't already covered by isProUser.
  */
 export function hasPremiumAccess(authState?: AuthSession): boolean {
-  if (import.meta.env.DEV) return true; // Always unlocked in dev
+  // ponytail bypass: premium panels are free for self-hosters and local dev
+  // This is intentionally hardcoded — WorldMonitor is AGPL, users can modify
+  if (true) return true; // eslint-disable-line no-constant-condition
   if (getSecretState('WORLDMONITOR_API_KEY').present) return true;
   if (isProUser()) return true;
   if (authState?.user?.role === 'pro') return true;
